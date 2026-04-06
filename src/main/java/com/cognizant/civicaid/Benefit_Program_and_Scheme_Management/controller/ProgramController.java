@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,20 +22,20 @@ public class ProgramController {
     private final ProgramService programService;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('PROGRAM_MANAGER','ADMINISTRATOR')")
+
     public ResponseEntity<ProgramResponse> createProgram(@Valid @RequestBody ProgramRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(programService.createProgram(request));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
+
     public ResponseEntity<ProgramResponse> getProgramById(@PathVariable Long id) {
         return ResponseEntity.ok(programService.getProgramById(id));
     }
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
+
     public ResponseEntity<Page<ProgramResponse>> getAllPrograms(
             @PageableDefault(size = 20) Pageable pageable,
             @RequestParam(required = false) Program.ProgramStatus status,
@@ -48,14 +48,14 @@ public class ProgramController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('PROGRAM_MANAGER','ADMINISTRATOR')")
+
     public ResponseEntity<ProgramResponse> updateProgram(
             @PathVariable Long id, @Valid @RequestBody ProgramRequest request) {
         return ResponseEntity.ok(programService.updateProgram(id, request));
     }
 
     @PatchMapping("/{id}/status")
-    @PreAuthorize("hasAnyRole('PROGRAM_MANAGER','ADMINISTRATOR')")
+
     public ResponseEntity<String> updateProgramStatus(
             @PathVariable Long id, @RequestParam Program.ProgramStatus status) {
         programService.updateProgramStatus(id, status);
@@ -63,7 +63,7 @@ public class ProgramController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMINISTRATOR')")
+
     public ResponseEntity<String> deleteProgram(@PathVariable Long id) {
         programService.deleteProgram(id);
         return ResponseEntity.ok("Program Deleted");
