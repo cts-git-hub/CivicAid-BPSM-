@@ -1,4 +1,4 @@
-package com.example.Benefit_Program_and_Scheme_Management;
+package com.cognizant.civicaid.Benefit_Program_and_Scheme_Management;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
